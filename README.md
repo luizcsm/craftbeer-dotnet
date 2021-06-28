@@ -94,6 +94,70 @@ Dica: Copie e cole o conteúdo do arquivo acima no [Swagger Editor](https://edit
 
 ## Seção reservada para que você descreva brevemente como executar o seu projeto
 
-Pode ser algo simples, como executar o arquivo Application.java. Ou talvez tenha alguma dependência como base de dados, por exemplo.
+### Descrição da solução
 
-TODO
+A API foi implementado utilizando ASP.NET 5.0.
+
+A aplicação, quando rodando em ambiente de desenvolvimento, é capaz de prover uma interface Swagger-UI a partir da rota "/api-docs" (URI padrão https://localhost:5000/api-docs).
+
+Foram desenvolvidos testes unitários para todas as operações utilizando as bibliotecas xUnit e Moq.
+
+### Instalação do .NET SDK
+
+Para executar a solução é necessário seguir as [instruções de instalação](https://docs.microsoft.com/en-gb/dotnet/core/install/) da SDK do .NET 5.0 para o seu sistema operacional.
+
+Se você utiliza Ubuntu 20.04, pode instalar a SDK do .NET a partir da execução dos seguintes comandos
+
+```
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+
+sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-5.0
+```
+
+### Clonando o projeto
+
+Utilize o seguinte comando para clonar o projeto:
+
+```
+git clone https://github.com/luizcsm/craftbeer-dotnet.git
+```
+
+### Instalando dependências
+
+Uma vez dentro do repositório, utilize o seguinte comando:
+
+```
+dotnet restore
+```
+
+### Realizando o build do projeto
+
+Uma vez dentro do repositório, utilize o seguinte comando:
+
+```
+dotnet build
+```
+
+### Executando testes automatizados
+
+Para executar os testes unitários desenvolvidos, utilize o comando dentro da raíz do repositório:
+
+```
+dotnet test src/CraftBeer.Test/
+```
+
+### Rodando API
+
+Para executar a API, utilize o seguinte comando dentro da raíz do repositório:
+
+```
+dotnet src/CraftBeer.Api/
+```
+
+### Collection POSTMAN para testes
+
+Existe um arquivo com uma Collection do Postman dentro do diretório "postman" para realização das requisições na API.
