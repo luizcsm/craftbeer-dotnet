@@ -98,7 +98,7 @@ Dica: Copie e cole o conteúdo do arquivo acima no [Swagger Editor](https://edit
 
 A API foi implementado utilizando ASP.NET 5.0.
 
-A aplicação, quando rodando em ambiente de desenvolvimento, é capaz de prover uma interface Swagger-UI a partir da rota "/api-docs" (URI padrão https://localhost:5000/api-docs).
+A aplicação, quando rodando em ambiente de desenvolvimento, é capaz de prover uma interface Swagger-UI a partir da rota "/api-docs" (URI padrão https://localhost:5001/api-docs).
 
 Foram desenvolvidos testes unitários para todas as operações utilizando as bibliotecas xUnit e Moq.
 
