@@ -147,7 +147,7 @@ dotnet build
 Para executar os testes unitários desenvolvidos, utilize o comando dentro da raíz do repositório:
 
 ```
-dotnet test src/CraftBeer.Test/
+dotnet test
 ```
 
 ### Rodando API
@@ -155,7 +155,7 @@ dotnet test src/CraftBeer.Test/
 Para executar a API, utilize o seguinte comando dentro da raíz do repositório:
 
 ```
-dotnet src/CraftBeer.Api/
+dotnet run --project src/CraftBeer.Api
 ```
 
 ### Collection POSTMAN para testes
