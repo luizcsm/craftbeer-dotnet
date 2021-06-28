@@ -3,15 +3,15 @@ using System.Runtime.Serialization;
 
 namespace CraftBeer.Api
 {
-    public class ServiceExceptionException : Exception
+    public class ServiceException : Exception
     {
-        public ServiceExceptionException() { }
+        public ServiceException() { }
 
-        public ServiceExceptionException(string message) : base(message) { }
+        public ServiceException(string message) : base(message) { }
 
-        public ServiceExceptionException(string message, Exception inner) : base(message, inner) { }
+        public ServiceException(string message, Exception inner) : base(message, inner) { }
         
-        protected ServiceExceptionException(
+        protected ServiceException(
             SerializationInfo info,
             StreamingContext context) : base(info, context) { }
     }

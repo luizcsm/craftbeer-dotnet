@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CraftBeer.Api.Models;
 
@@ -14,29 +15,75 @@ namespace CraftBeer.Api.Domain
             _beerRepository = beerRepository;
         }
 
-        public Task<IEnumerable<Beer>> GetAllBeersAsync()
+        public async Task<IEnumerable<Beer>> GetAllBeersAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return (await _beerRepository.GetAllAsync()).OrderBy((b) => b.Id);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Error retrieving beer list", ex);
+            }
         }
 
-        public Task<Beer> GetBeerByIdAsync(int id)
+        public async Task<Beer> GetBeerByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _beerRepository.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException($"Error retrieving beer with Id = {id}", ex);
+            }
         }
 
-        public Task<Beer> AddNewBeerAsync(Beer beer)
+        public async Task<Beer> AddNewBeerAsync(Beer beer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _beerRepository.CreateAsync(beer);
+                return beer;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException($"Error inserting new beer with Id = {beer?.Id}", ex);
+            }
         }
 
-        public Task<bool> UpdateBeerAsync(int id, Beer beer)
+        public async Task<bool> UpdateBeerAsync(int id, Beer beer)
         {
-            throw new NotImplementedException();
+            if (await GetBeerByIdAsync(id) == null)
+            {
+                return false;
+            }
+            try
+            {
+                await _beerRepository.UpdateAsync(id, beer);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException($"Error updating beer Id = {id}", ex);
+            }
+            return true;
         }
 
-        public Task<bool> DeleteBeerAsync(int id)
+        public async Task<bool> DeleteBeerAsync(int id)
         {
-            throw new NotImplementedException();
+            if (await GetBeerByIdAsync(id) == null)
+            {
+                return false;
+            }
+            try
+            {
+                await _beerRepository.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException($"Error removing beer Id = {id}", ex);
+            }
+            return true;
         }
     }
 }

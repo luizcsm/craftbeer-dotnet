@@ -8,5 +8,12 @@ namespace CraftBeer.Api.Models
         public string AlcoholContents { get; set; }
         public decimal Price { get; set; }
         public string Category { get; set; }
+
+        protected Beer() {}
+
+        public Beer(int id)
+        {
+            Id = id;
+        }
     }
 }
