@@ -1,34 +1,36 @@
+using System;
 using System.Collections.Generic;
 using CraftBeer.Api.Models;
 using CraftBeer.Api.Domain;
+using System.Threading.Tasks;
 
 namespace CraftBeer.Api.Repositories
 {
-    public class BeerRepository : IBeerRepository
+    public class BeerRepository : IRepository<Beer>
     {
-        public void Add(Beer beer)
+        public Task CreateAsync(Beer entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Beer Get(int id)
+        public Task DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Beer> List()
+        public Task<IEnumerable<Beer>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task<Beer> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void Update(int id, Beer beer)
+        public Task UpdateAsync(int id, Beer entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
