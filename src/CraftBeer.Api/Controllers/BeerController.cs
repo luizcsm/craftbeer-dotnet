@@ -46,7 +46,7 @@ namespace CraftBeer.Api.Controllers
         public async Task<IActionResult> PostAsync([FromBody] Beer beer)
         {
             var result = await _beerService.AddNewBeerAsync(beer);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = result.Id });
+            return CreatedAtAction("GetById", new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
@@ -59,12 +59,12 @@ namespace CraftBeer.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             bool found = await _beerService.DeleteBeerAsync(id);
-            return found ? Ok() : NotFound();
+            return found ? NoContent() : NotFound();
         }
 
         // Need to understand differences between PUT and PATCH when request body is not specific and attributes are not optional
