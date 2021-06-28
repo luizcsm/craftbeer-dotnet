@@ -13,8 +13,6 @@ namespace CraftBeer.Api.Controllers
     [Route("beers")]
     public class BeerController : ControllerBase
     {
-        private const string HOST = "https://localhost:5001";
-
         private readonly ILogger<BeerController> _logger;
         private readonly BeerService _beerService;
 
@@ -44,41 +42,39 @@ namespace CraftBeer.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Beer))]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> PostAsync([FromBody] Beer beer)
         {
             var result = await _beerService.AddNewBeerAsync(beer);
-            return Created(GenerateLocationHeader(result.Id), result);
-        }
-
-        private string GenerateLocationHeader(int beerId)
-        {
-            return $"{HOST}/beers/{beerId}";
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = result.Id });
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Beer beer)
         {
-            await _beerService.UpdateBeerAsync(id, beer);
-            return NoContent();
+            bool found = await _beerService.UpdateBeerAsync(id, beer);
+            return found ? Ok() : NotFound();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
+        {
+            bool found = await _beerService.DeleteBeerAsync(id);
+            return found ? Ok() : NotFound();
         }
 
         // Need to understand differences between PUT and PATCH when request body is not specific and attributes are not optional
         [HttpPatch("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PatchAsync([FromRoute] int id, [FromBody] Beer beer)
         {
-            await _beerService.UpdateBeerAsync(id, beer);
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
-        {
-            await _beerService.DeleteBeerAsync(id);
-            return NoContent();
+            bool found = await _beerService.UpdateBeerAsync(id, beer);
+            return found ? Ok() : NotFound();
         }
     }
 }

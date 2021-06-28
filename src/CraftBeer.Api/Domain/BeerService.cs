@@ -29,7 +29,7 @@ namespace CraftBeer.Api.Domain
             throw new NotImplementedException();
         }
 
-        public Task<Beer> UpdateBeerAsync(int id, Beer beer)
+        public Task<bool> UpdateBeerAsync(int id, Beer beer)
         {
             throw new NotImplementedException();
         }
